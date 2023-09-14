@@ -432,6 +432,7 @@ class ModbusMaster {
    * @return false|Array Success flag or array of received data.
    */
   function readMultipleRegisters($unitId, $reference, $quantity){
+    $reference = $reference - 1;
     $this->status .= "readMultipleRegisters: START\n";
     // connect
     $this->connect();
