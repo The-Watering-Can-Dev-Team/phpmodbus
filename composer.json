@@ -1,4 +1,5 @@
 {
+    "name": "thewateringcan/phpmodbus",
     "repositories": [
         {
             "type": "vcs",
