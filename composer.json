@@ -1,7 +1,6 @@
 {
     "name": "thewateringcan/phpmodbus",
     "description": "Composer version of PhpModBus",
-    "license": "LGPL",
     "authors": [
         {
             "name": "Honza Krakora",
