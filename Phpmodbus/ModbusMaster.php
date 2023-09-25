@@ -50,6 +50,8 @@ class ModbusMaster {
   public $timeout_sec = 5; // Timeout 5 sec
   public $endianness = 0; // Endianness codding (little endian == 0, big endian == 1) 
   public $socket_protocol = "UDP"; // Socket protocol (TCP, UDP)
+
+  private static int $throttle = 5000;
   
   /**
    * ModbusMaster
@@ -63,6 +65,10 @@ class ModbusMaster {
     $this->socket_protocol = $protocol;
     $this->host = $host;
   }
+
+    static function throttle() {
+      usleep(static::$throttle);
+    }
 
   /**
    * __toString
@@ -81,6 +87,7 @@ class ModbusMaster {
    * @return bool
    */
   private function connect(){
+      static::throttle();
     // Create a protocol specific socket 
     if ($this->socket_protocol == "TCP"){ 
         // TCP socket
@@ -432,7 +439,8 @@ class ModbusMaster {
    * @return false|Array Success flag or array of received data.
    */
   function readMultipleRegisters($unitId, $reference, $quantity){
-    $reference = $reference - 1;
+    static::throttle();
+    $reference--;
     $this->status .= "readMultipleRegisters: START\n";
     // connect
     $this->connect();
@@ -532,6 +540,7 @@ class ModbusMaster {
    * @return false|Array Success flag or array of received data.
    */
   function readMultipleInputRegisters($unitId, $reference, $quantity){
+      static::throttle();
     $this->status .= "readMultipleInputRegisters: START\n";
     // connect
     $this->connect();
@@ -951,6 +960,8 @@ class ModbusMaster {
    * @return bool Success flag
    */       
   function writeMultipleRegister($unitId, $reference, $data, $dataTypes){
+    static::throttle();
+    $reference--;
     $this->status .= "writeMultipleRegister: START\n";
     // connect
     $this->connect();
