@@ -1,5 +1,5 @@
 {
-    "name": "the-watering-can/phpmodbus",
+    "name": "thewateringcan/phpmodbus",
     "description": "Composer version of PhpModBus",
     "license": "LGPL",
     "authors": [
