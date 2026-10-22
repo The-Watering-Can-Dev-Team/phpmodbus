@@ -65,10 +65,22 @@ class ModbusMaster
      * @param String $host An IP address of a Modbus TCP device. E.g. "192.168.1.1"
      * @param String $protocol Socket protocol (TCP, UDP)
      */
-    function ModbusMaster($host, $protocol)
+    function __construct($host, $protocol)
     {
         $this->socket_protocol = $protocol;
         $this->host = $host;
+    }
+
+    /**
+     * Old PHP 4-style constructor name. PHP 8 never calls a method named after its class as a
+     * constructor, so without __construct every master silently kept the default host
+     * 192.168.1.1. Kept as an ordinary method for any caller that invokes it directly.
+     *
+     * @deprecated Use new ModbusMaster($host, $protocol).
+     */
+    function ModbusMaster($host, $protocol)
+    {
+        $this->__construct($host, $protocol);
     }
 
     private static function throttle()

@@ -42,8 +42,17 @@ class ModbusMasterTcp extends ModbusMaster {
    *     
    * @param String $host An IP address of a Modbus TCP device. E.g. "192.168.1.1".
    */         
-  function ModbusMasterTcp($host){
+  function __construct($host){
     $this->host = $host;
     $this->socket_protocol = "TCP";
+  }
+
+  /**
+   * Old PHP 4-style constructor name, which PHP 8 never calls as a constructor.
+   *
+   * @deprecated Use new ModbusMasterTcp($host).
+   */
+  function ModbusMasterTcp($host){
+    $this->__construct($host);
   }
 }
